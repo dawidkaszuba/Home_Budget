@@ -1,13 +1,12 @@
 package pl.dawidkaszuba.homebudget.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import pl.dawidkaszuba.homebudget.AddExpenditureActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
 import pl.dawidkaszuba.homebudget.R;
 
 public class MainActivity extends AppCompatActivity {

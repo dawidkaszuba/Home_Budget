@@ -1,7 +1,6 @@
 package pl.dawidkaszuba.homebudget.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,13 +10,14 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import pl.dawidkaszuba.homebudget.AddExpenditureActivity;
 import pl.dawidkaszuba.homebudget.ApiUtils;
 import pl.dawidkaszuba.homebudget.R;
 import pl.dawidkaszuba.homebudget.RetrofitClient;
+import pl.dawidkaszuba.homebudget.model.LoggedUser;
 import pl.dawidkaszuba.homebudget.model.Token;
 import pl.dawidkaszuba.homebudget.model.User;
 import pl.dawidkaszuba.homebudget.service.BackendServerService;
+import pl.dawidkaszuba.homebudget.shearedPreferences.MyPreferences;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,31 +56,30 @@ public class LoginActivity extends AppCompatActivity {
 
         User user = new User(userName, password);
 
-        Call<Token> call = mBackendServerService.authenticate(user);
-        call.enqueue(new Callback<Token>() {
+        Call<LoggedUser> call = mBackendServerService.authenticate(user);
+        call.enqueue(new Callback<LoggedUser>() {
 
             @Override
-            public void onResponse(final Call<Token> call, final Response<Token> response) {
+            public void onResponse(final Call<LoggedUser> call, final Response<LoggedUser> response) {
                 if (response.isSuccessful()) {
-                    assert response.body() != null;
-                    Toast.makeText(LoginActivity.this,response.body().getToken(),Toast.LENGTH_SHORT).show();
+
                     Intent intent = new Intent(getApplicationContext(), BalanceActivity.class);
 
-                    SharedPreferences.Editor pref = getApplicationContext().getSharedPreferences("MyPref", 0).edit();
-                    pref.putString("TOKEN","Bearer " + response.body().getToken());
-                    pref.apply();
+                    MyPreferences myPreferences = MyPreferences.getInstance(getApplicationContext());
+                    myPreferences.savePreference("TOKEN","Bearer " + response.body().getToken());
+                    myPreferences.savePreference("USER_ID",response.body().getId().toString());
 
                     startActivity(intent);
 
                 }else{
+
                     Toast.makeText(LoginActivity.this,response.errorBody().toString(),Toast.LENGTH_SHORT).show();
-                    System.out.println(response.code());
                 }
             }
 
 
             @Override
-            public void onFailure(final Call<Token> call, final Throwable t) {
+            public void onFailure(final Call<LoggedUser> call, final Throwable t) {
                 Toast.makeText(LoginActivity.this,"Error!",Toast.LENGTH_SHORT).show();
             }
         });

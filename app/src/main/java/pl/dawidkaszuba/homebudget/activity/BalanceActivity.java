@@ -1,9 +1,7 @@
 package pl.dawidkaszuba.homebudget.activity;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,8 +13,8 @@ import pl.dawidkaszuba.homebudget.R;
 import pl.dawidkaszuba.homebudget.RetrofitClient;
 import pl.dawidkaszuba.homebudget.model.Balance;
 import pl.dawidkaszuba.homebudget.model.Token;
-import pl.dawidkaszuba.homebudget.model.User;
 import pl.dawidkaszuba.homebudget.service.BackendServerService;
+import pl.dawidkaszuba.homebudget.shearedPreferences.MyPreferences;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,22 +38,22 @@ public class BalanceActivity extends AppCompatActivity {
     }
     private void getBalance() {
 
-        Long userId = 6l;
+        MyPreferences myPreferences = MyPreferences.getInstance(getApplicationContext());
+        Token token = new Token(myPreferences.getPreference("TOKEN"));
+        Long userId = Long.parseLong(myPreferences.getPreference("USER_ID"));
+
         LocalDate from = null;
         LocalDate to = null;
         TextView balanceTextView = findViewById(R.id.balance);
-
 
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             LocalDate now = LocalDate.now();
             from = now.withDayOfMonth(1);
             to = now.withDayOfMonth(now.lengthOfMonth());
+
         }
 
-
-        SharedPreferences prefs = getSharedPreferences("MyPref", MODE_PRIVATE);
-        Token token = new Token(prefs.getString("TOKEN"," "));
 
 
         Call<Balance> call = mBackendServerService.getBalance(token.getToken(), userId, from, to);
@@ -65,7 +63,9 @@ public class BalanceActivity extends AppCompatActivity {
             public void onResponse(final Call<Balance> call, final Response<Balance> response) {
                 if (response.isSuccessful()) {
 
-                    balanceTextView.setText(String.valueOf(response.body().getAmount()));
+                    balanceTextView.setText(String.valueOf(response.body().getValue()));
+                    System.out.println(response.body().getValue());
+
 
                 } else {
 

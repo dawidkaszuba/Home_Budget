@@ -2,17 +2,18 @@ package pl.dawidkaszuba.homebudget.model;
 
 public class Balance {
 
-    private double amount;
+    private double value;
 
-    public Balance(final double amount) {
-        this.amount = amount;
+    public Balance(final double value) {
+        this.value = value;
     }
 
-    public double getAmount() {
-        return amount;
+    public double getValue() {
+        return value;
     }
 
-    public void setAmount(final double amount) {
-        this.amount = amount;
+    public void setValue(final double value) {
+        this.value = value;
     }
 }
+

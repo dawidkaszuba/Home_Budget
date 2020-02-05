@@ -14,7 +14,8 @@
         android:text="@string/balanceLabel"
         android:gravity="center"
         android:textSize="40sp"
-        android:layout_margin="20dp"/>
+        android:layout_margin="20dp"
+        />
 
     <TextView
         android:id="@+id/balance"
@@ -22,6 +23,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/balance"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:textColor="#00b75b"/>
 
 </LinearLayout>
