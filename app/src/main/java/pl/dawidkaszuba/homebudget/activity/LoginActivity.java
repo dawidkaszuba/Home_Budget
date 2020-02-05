@@ -1,5 +1,7 @@
 package pl.dawidkaszuba.homebudget.activity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import pl.dawidkaszuba.homebudget.AddExpenditureActivity;
 import pl.dawidkaszuba.homebudget.ApiUtils;
 import pl.dawidkaszuba.homebudget.R;
 import pl.dawidkaszuba.homebudget.RetrofitClient;
@@ -36,8 +39,8 @@ public class LoginActivity extends AppCompatActivity {
 
         Button registerButton = findViewById(R.id.register_send);
 
-
         registerButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(final View v) {
                  EditText userNameField = findViewById(R.id.username);
@@ -61,7 +64,13 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     assert response.body() != null;
                     Toast.makeText(LoginActivity.this,response.body().getToken(),Toast.LENGTH_SHORT).show();
-                    System.out.println(response.body().getToken());
+                    Intent intent = new Intent(getApplicationContext(), BalanceActivity.class);
+
+                    SharedPreferences.Editor pref = getApplicationContext().getSharedPreferences("MyPref", 0).edit();
+                    pref.putString("TOKEN","Bearer " + response.body().getToken());
+                    pref.apply();
+
+                    startActivity(intent);
 
                 }else{
                     Toast.makeText(LoginActivity.this,response.errorBody().toString(),Toast.LENGTH_SHORT).show();

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Home Budget</string>
+    <string name="balance">balance</string>
+    <string name="balanceLabel">BALANCE</string>
+    <string name="welcome">create your money</string>
+    <string name="register">register</string>
+    <string name="password">password</string>
+    <string name="userName">userName</string>
+    <string name="login">login</string>
 </resources>

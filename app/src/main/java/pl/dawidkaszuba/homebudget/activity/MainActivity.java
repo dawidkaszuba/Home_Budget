@@ -17,15 +17,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button addExpenditureButton = findViewById(R.id.add_expenditure);
-
-        addExpenditureButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Intent intent = new Intent(getApplicationContext(), AddExpenditureActivity.class);
-                startActivity(intent);
-            }
-        });
 
         Button registerButton = findViewById(R.id.register);
 

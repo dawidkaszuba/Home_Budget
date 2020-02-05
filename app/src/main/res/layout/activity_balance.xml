@@ -5,12 +5,23 @@
     android:gravity="center"
     >
 
+
+
+    <TextView
+        android:id="@+id/balanceLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/balanceLabel"
+        android:gravity="center"
+        android:textSize="40sp"
+        android:layout_margin="20dp"/>
+
     <TextView
         android:id="@+id/balance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="balance"
+        android:text="@string/balance"
         android:textSize="25sp" />
 
 </LinearLayout>
