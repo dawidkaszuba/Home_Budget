@@ -1,10 +1,14 @@
 package pl.dawidkaszuba.homebudget.activity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.time.LocalDate;
 
@@ -33,6 +37,16 @@ public class BalanceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_balance);
         getBalance();
+
+
+        FloatingActionButton addExpenditure = findViewById(R.id.add_expenditure);
+
+        addExpenditure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(BalanceActivity.this, "add expend", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
     }
