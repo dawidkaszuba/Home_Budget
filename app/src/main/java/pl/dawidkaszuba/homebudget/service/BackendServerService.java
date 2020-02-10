@@ -1,10 +1,13 @@
 package pl.dawidkaszuba.homebudget.service;
 
 import java.time.LocalDate;
+import java.util.List;
 
-import pl.dawidkaszuba.homebudget.model.Balance;
-import pl.dawidkaszuba.homebudget.model.LoggedUser;
-import pl.dawidkaszuba.homebudget.model.User;
+import pl.dawidkaszuba.homebudget.pojo.Balance;
+import pl.dawidkaszuba.homebudget.pojo.Expenditure;
+import pl.dawidkaszuba.homebudget.pojo.LoggedUser;
+import pl.dawidkaszuba.homebudget.pojo.Tag;
+import pl.dawidkaszuba.homebudget.pojo.User;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -24,4 +27,14 @@ public interface BackendServerService {
                              @Path("userId") Long userId,
                              @Query(value = "from") LocalDate from,
                              @Query(value = "to") LocalDate to);
+
+    @POST("/users/{userId}/expenditures")
+    Call<Expenditure> addExpenditure(@Header("Authorization") String token,
+                                     @Body Expenditure expenditure,
+                                     @Path("userId") Long userId);
+
+    @GET("/users/{userId}/tags")
+    Call<List<Tag>> getAllTags(@Header("Authorization") String token,
+                               @Path("userId") Long userId);
+
 }

@@ -1,4 +1,4 @@
-package pl.dawidkaszuba.homebudget.activity;
+package pl.dawidkaszuba.homebudget.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import pl.dawidkaszuba.homebudget.ApiUtils;
 import pl.dawidkaszuba.homebudget.R;
 import pl.dawidkaszuba.homebudget.RetrofitClient;
-import pl.dawidkaszuba.homebudget.model.LoggedUser;
-import pl.dawidkaszuba.homebudget.model.Token;
-import pl.dawidkaszuba.homebudget.model.User;
+import pl.dawidkaszuba.homebudget.pojo.LoggedUser;
+import pl.dawidkaszuba.homebudget.pojo.User;
 import pl.dawidkaszuba.homebudget.service.BackendServerService;
 import pl.dawidkaszuba.homebudget.shearedPreferences.MyPreferences;
 import retrofit2.Call;

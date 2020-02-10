@@ -1,8 +1,7 @@
-package pl.dawidkaszuba.homebudget.model;
+package pl.dawidkaszuba.homebudget.pojo;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 public class Expenditure {
 
@@ -10,23 +9,25 @@ public class Expenditure {
     private Long id;
     private BigDecimal amount;
     private LocalDate expenditureDate;
-    private List<Tag> tags;
+    private Tag tag;
     private PlannedCashFlow plannedCashFlow;
     private String note;
     private User user;
 
-    public Expenditure(final Long id,
-                       final BigDecimal amount,
-                       final LocalDate expenditureDate,
-                       final List<Tag> tags,
-                       final PlannedCashFlow plannedCashFlow,
-                       final String note,
-                       final User user) {
+    public Expenditure(Long id, BigDecimal amount, LocalDate expenditureDate, Tag tag, PlannedCashFlow plannedCashFlow, String note, User user) {
         this.id = id;
         this.amount = amount;
         this.expenditureDate = expenditureDate;
-        this.tags = tags;
+        this.tag = tag;
         this.plannedCashFlow = plannedCashFlow;
+        this.note = note;
+        this.user = user;
+    }
+
+
+    public Expenditure(BigDecimal amount, Tag tag, String note, User user) {
+        this.amount = amount;
+        this.tag = tag;
         this.note = note;
         this.user = user;
     }
@@ -35,7 +36,7 @@ public class Expenditure {
         return id;
     }
 
-    public void setId(final Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -43,7 +44,7 @@ public class Expenditure {
         return amount;
     }
 
-    public void setAmount(final BigDecimal amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
@@ -51,23 +52,23 @@ public class Expenditure {
         return expenditureDate;
     }
 
-    public void setExpenditureDate(final LocalDate expenditureDate) {
+    public void setExpenditureDate(LocalDate expenditureDate) {
         this.expenditureDate = expenditureDate;
     }
 
-    public List<Tag> getTags() {
-        return tags;
+    public Tag getTag() {
+        return tag;
     }
 
-    public void setTags(final List<Tag> tags) {
-        this.tags = tags;
+    public void setTag(Tag tag) {
+        this.tag = tag;
     }
 
     public PlannedCashFlow getPlannedCashFlow() {
         return plannedCashFlow;
     }
 
-    public void setPlannedCashFlow(final PlannedCashFlow plannedCashFlow) {
+    public void setPlannedCashFlow(PlannedCashFlow plannedCashFlow) {
         this.plannedCashFlow = plannedCashFlow;
     }
 
@@ -75,7 +76,7 @@ public class Expenditure {
         return note;
     }
 
-    public void setNote(final String note) {
+    public void setNote(String note) {
         this.note = note;
     }
 
@@ -83,7 +84,7 @@ public class Expenditure {
         return user;
     }
 
-    public void setUser(final User user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

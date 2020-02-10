@@ -1,4 +1,4 @@
-package pl.dawidkaszuba.homebudget.activity;
+package pl.dawidkaszuba.homebudget.view;
 
 import android.os.Bundle;
 

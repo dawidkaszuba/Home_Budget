@@ -1,10 +1,8 @@
-package pl.dawidkaszuba.homebudget.activity;
+package pl.dawidkaszuba.homebudget.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,12 +11,11 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.time.LocalDate;
 
-import pl.dawidkaszuba.homebudget.AddExpenditureActivity;
 import pl.dawidkaszuba.homebudget.ApiUtils;
 import pl.dawidkaszuba.homebudget.R;
 import pl.dawidkaszuba.homebudget.RetrofitClient;
-import pl.dawidkaszuba.homebudget.model.Balance;
-import pl.dawidkaszuba.homebudget.model.Token;
+import pl.dawidkaszuba.homebudget.pojo.Balance;
+import pl.dawidkaszuba.homebudget.pojo.Token;
 import pl.dawidkaszuba.homebudget.service.BackendServerService;
 import pl.dawidkaszuba.homebudget.shearedPreferences.MyPreferences;
 import retrofit2.Call;
@@ -89,7 +86,6 @@ public class BalanceActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
 
                     balanceTextView.setText(String.valueOf(response.body().getValue()));
-                    System.out.println(response.body().getValue());
 
 
                 } else {

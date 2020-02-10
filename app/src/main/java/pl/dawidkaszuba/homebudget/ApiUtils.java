@@ -1,12 +1,12 @@
 package pl.dawidkaszuba.homebudget;
 
-import pl.dawidkaszuba.homebudget.activity.LoginActivity;
+import pl.dawidkaszuba.homebudget.view.LoginActivity;
 
 public class ApiUtils {
 
     private ApiUtils() {}
 
-    public static final String BASE_URL = "http://192.168.1.21:8080//";
+    public static final String BASE_URL = "http://192.168.1.21:8080/";
 
     public static LoginActivity getAPIService() {
 
