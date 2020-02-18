@@ -67,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                     MyPreferences myPreferences = MyPreferences.getInstance(getApplicationContext());
                     myPreferences.savePreference("TOKEN","Bearer " + response.body().getToken());
                     myPreferences.savePreference("USER_ID",response.body().getId().toString());
+                    myPreferences.savePreference("USER_NAME",response.body().getUserName());
 
                     startActivity(intent);
 

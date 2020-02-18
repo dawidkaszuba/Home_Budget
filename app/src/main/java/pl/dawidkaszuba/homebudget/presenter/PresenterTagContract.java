@@ -1,6 +1,6 @@
 package pl.dawidkaszuba.homebudget.presenter;
 
-public interface PresenterContract {
+public interface PresenterTagContract {
 
     void getTags();
 }

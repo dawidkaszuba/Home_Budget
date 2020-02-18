@@ -15,11 +15,11 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class TagsModel implements ModelContract {
+public class ModelTagContractImpl implements ModelTagContract {
 
     private Context context;
 
-    public TagsModel(Context context) {
+    public ModelTagContractImpl(Context context) {
         this.context=context;
     }
 

@@ -1,5 +1,6 @@
 package pl.dawidkaszuba.homebudget.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -23,7 +24,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class BalanceActivity extends AppCompatActivity {
+public class BalanceActivity extends Activity {
 
     Retrofit retrofit = RetrofitClient.getClient(ApiUtils.BASE_URL);
 
@@ -103,5 +104,10 @@ public class BalanceActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        getBalance();
+    }
 }

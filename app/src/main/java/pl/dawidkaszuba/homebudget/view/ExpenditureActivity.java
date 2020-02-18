@@ -2,7 +2,10 @@ package pl.dawidkaszuba.homebudget.view;
 
 import android.os.Bundle;
 import android.text.Editable;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -22,14 +25,14 @@ import pl.dawidkaszuba.homebudget.pojo.Token;
 import pl.dawidkaszuba.homebudget.pojo.User;
 import pl.dawidkaszuba.homebudget.service.BackendServerService;
 import pl.dawidkaszuba.homebudget.shearedPreferences.MyPreferences;
-import pl.dawidkaszuba.homebudget.presenter.PresenterContract;
-import pl.dawidkaszuba.homebudget.presenter.TagsPresenter;
+import pl.dawidkaszuba.homebudget.presenter.PresenterTagContract;
+import pl.dawidkaszuba.homebudget.presenter.PresenterTagContractImpl;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class ExpenditureActivity extends AppCompatActivity implements ViewContract {
+public class ExpenditureActivity extends AppCompatActivity implements ViewTagContract {
 
     Retrofit retrofit = RetrofitClient.getClient(ApiUtils.BASE_URL);
 
@@ -38,7 +41,7 @@ public class ExpenditureActivity extends AppCompatActivity implements ViewContra
 
     Spinner spinner;
 
-    PresenterContract presenterContract;
+    PresenterTagContract presenterContract;
 
 
 
@@ -46,6 +49,24 @@ public class ExpenditureActivity extends AppCompatActivity implements ViewContra
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expenditure);
+
+
+        spinner = findViewById(R.id.tag_spinner);
+        presenterContract = new PresenterTagContractImpl(this);
+        presenterContract.getTags();
+
+
+
+        Button createExpenditure = findViewById(R.id.expenditure_send);
+
+        createExpenditure.setOnClickListener( v -> addExpenditure());
+
+
+    }
+
+
+
+    private void addExpenditure(){
 
 
         EditText expenditureNoteField= findViewById(R.id.expenditure_note);
@@ -56,27 +77,17 @@ public class ExpenditureActivity extends AppCompatActivity implements ViewContra
         Editable expenditureNote = expenditureNoteField.getText();
 
 
-        spinner = findViewById(R.id.tag_spinner);
 
-        presenterContract = new TagsPresenter(this);
-        presenterContract.getTags();
-
-
-    }
-
-
-
-    private void addExpenditure( BigDecimal expenditureAmount, String note, Tag tag){
+        Tag tag = (Tag) spinner.getSelectedItem();
 
         MyPreferences myPreferences = MyPreferences.getInstance(getApplicationContext());
-        Token token = new Token(myPreferences.getPreference("TOKEN"));
         Long userId = Long.parseLong(myPreferences.getPreference("USER_ID"));
+        String userName = myPreferences.getPreference("USER_NAME");
+        Token token = new Token(myPreferences.getPreference("TOKEN"));
 
-        User user = new User(userId);
-        tag = new Tag();
+        User user = new User(userId,userName);
+        Expenditure expenditure = new Expenditure(new BigDecimal(expenditureAmount.toString()),tag,expenditureNote.toString(),user);
 
-
-        Expenditure expenditure = new Expenditure(expenditureAmount,tag,note,user);
 
         Call<Expenditure> call = mBackendServerService.addExpenditure(token.getToken(),expenditure,userId);
         call.enqueue(new Callback<Expenditure>() {
@@ -92,7 +103,6 @@ public class ExpenditureActivity extends AppCompatActivity implements ViewContra
                     Toast.makeText(ExpenditureActivity.this,response.errorBody().toString(),Toast.LENGTH_SHORT).show();
                 }
             }
-
 
             @Override
             public void onFailure(final Call<Expenditure> call, final Throwable t) {

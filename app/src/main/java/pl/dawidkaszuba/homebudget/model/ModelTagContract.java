@@ -5,7 +5,7 @@ import java.util.List;
 import io.reactivex.Single;
 import pl.dawidkaszuba.homebudget.pojo.Tag;
 
-public interface ModelContract {
+public interface ModelTagContract {
 
     Single<List<Tag>> getTagsFromHttp();
 }
