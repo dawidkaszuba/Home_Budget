@@ -9,25 +9,25 @@ import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import pl.dawidkaszuba.homebudget.model.ModelContract;
+import pl.dawidkaszuba.homebudget.model.ModelTagContract;
 import pl.dawidkaszuba.homebudget.pojo.Tag;
-import pl.dawidkaszuba.homebudget.model.TagsModel;
-import pl.dawidkaszuba.homebudget.view.ViewContract;
+import pl.dawidkaszuba.homebudget.model.ModelTagContractImpl;
+import pl.dawidkaszuba.homebudget.view.ViewTagContract;
 
-public class TagsPresenter implements PresenterContract {
+public class PresenterTagContractImpl implements PresenterTagContract {
 
 
     public static final String TAG = "Tags_tag";
 
 
-    ViewContract view;
+    ViewTagContract view;
 
-    ModelContract model;
+    ModelTagContract model;
 
 
-    public TagsPresenter(Context context) {
-        view = (ViewContract) context;
-        model = new TagsModel(context);
+    public PresenterTagContractImpl(Context context) {
+        view = (ViewTagContract) context;
+        model = new ModelTagContractImpl(context);
     }
 
     @Override

@@ -4,7 +4,7 @@ import java.util.List;
 
 import pl.dawidkaszuba.homebudget.pojo.Tag;
 
-public interface ViewContract {
+public interface ViewTagContract {
 
     void fillTagsSpinner(List<Tag> tags);
 

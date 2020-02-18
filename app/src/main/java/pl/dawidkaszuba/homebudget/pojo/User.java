@@ -14,6 +14,11 @@ public class User {
     public User(Long userId) {
     }
 
+    public User(Long userId, String userName) {
+        this.userId = userId;
+        this.username = userName;
+    }
+
     public Long getUserId() {
         return userId;
     }
