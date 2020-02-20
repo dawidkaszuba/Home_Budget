@@ -1,8 +1,10 @@
 package pl.dawidkaszuba.homebudget.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,38 +12,19 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
-import java.math.BigDecimal;
 import java.util.List;
 
-import okhttp3.ResponseBody;
-import pl.dawidkaszuba.homebudget.ApiUtils;
 import pl.dawidkaszuba.homebudget.R;
-import pl.dawidkaszuba.homebudget.RetrofitClient;
-import pl.dawidkaszuba.homebudget.pojo.Expenditure;
 import pl.dawidkaszuba.homebudget.pojo.Tag;
-import pl.dawidkaszuba.homebudget.pojo.Token;
-import pl.dawidkaszuba.homebudget.pojo.User;
-import pl.dawidkaszuba.homebudget.presenter.PresenterTagContract;
-import pl.dawidkaszuba.homebudget.presenter.PresenterTagContractImpl;
-import pl.dawidkaszuba.homebudget.service.BackendServerService;
-import pl.dawidkaszuba.homebudget.shearedPreferences.MyPreferences;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
+import pl.dawidkaszuba.homebudget.presenter.PresenterExpenditureContract;
+import pl.dawidkaszuba.homebudget.presenter.PresenterExpenditureContractImpl;
 
-public class ExpenditureActivity extends AppCompatActivity implements ViewTagContract {
-
-    Retrofit retrofit = RetrofitClient.getClient(ApiUtils.BASE_URL);
-
-
-    BackendServerService mBackendServerService = retrofit.create(BackendServerService.class);
+public class ExpenditureActivity extends Activity implements ViewTagContract {
 
     Spinner spinner;
 
-    PresenterTagContract presenterContract;
+    PresenterExpenditureContract presenterContract;
 
 
 
@@ -52,63 +35,25 @@ public class ExpenditureActivity extends AppCompatActivity implements ViewTagCon
 
 
         spinner = findViewById(R.id.tag_spinner);
-        presenterContract = new PresenterTagContractImpl(this);
+        presenterContract = new PresenterExpenditureContractImpl(this);
         presenterContract.getTags();
-
-
 
         Button createExpenditure = findViewById(R.id.expenditure_send);
 
-        createExpenditure.setOnClickListener( v -> addExpenditure());
-
-
-    }
-
-
-
-    private void addExpenditure(){
-        Intent intent = new Intent(getApplicationContext(), BalanceActivity.class);
-
         EditText expenditureNoteField= findViewById(R.id.expenditure_note);
         EditText expenditureAmountField= findViewById(R.id.expenditure_amount);
-
-
         Editable expenditureAmount = expenditureAmountField.getText();
         Editable expenditureNote = expenditureNoteField.getText();
 
-
-
+        View view = new View(getApplicationContext());
         Tag tag = (Tag) spinner.getSelectedItem();
 
-        MyPreferences myPreferences = MyPreferences.getInstance(getApplicationContext());
-        Long userId = Long.parseLong(myPreferences.getPreference("USER_ID"));
-        String userName = myPreferences.getPreference("USER_NAME");
-        Token token = new Token(myPreferences.getPreference("TOKEN"));
-
-        User user = new User(userId,userName);
-        Expenditure expenditure = new Expenditure(new BigDecimal(expenditureAmount.toString()),tag,expenditureNote.toString(),user);
-
-
-        Call<ResponseBody> call = mBackendServerService.addExpenditure(token.getToken(),expenditure,userId);
-        call.enqueue(new Callback<ResponseBody>() {
-
-            @Override
-            public void onResponse(final Call<ResponseBody> call, final Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-
-                    startActivity(intent);
-
-                }else{
-
-                    Toast.makeText(ExpenditureActivity.this,response.errorBody().toString(),Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(final Call<ResponseBody> call, final Throwable t) {
-                Toast.makeText(ExpenditureActivity.this,"Error!",Toast.LENGTH_SHORT).show();
-            }
-        });
+       createExpenditure.setOnClickListener( v -> {
+           presenterContract
+                   .addExpenditure(view,expenditureAmount.toString(),
+                           expenditureNote.toString(),
+                           tag);
+       });
 
 
     }
@@ -131,5 +76,8 @@ public class ExpenditureActivity extends AppCompatActivity implements ViewTagCon
         Toast.makeText(ExpenditureActivity.this,"error: " + msg, Toast.LENGTH_SHORT).show();
     }
 
+    public void navigateToHomeScreen(Intent intent) {
+        startActivity(intent);
+    }
 
 }

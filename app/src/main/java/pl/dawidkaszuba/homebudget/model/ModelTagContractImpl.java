@@ -26,19 +26,19 @@ public class ModelTagContractImpl implements ModelTagContract {
     @Override
     public Single<List<Tag>> getTagsFromHttp() {
 
-        TagsServiceManager tagsServiceManager = new TagsServiceManager();
+        RESTServiceManager RESTServiceManager = new RESTServiceManager();
 
         MyPreferences myPreferences = MyPreferences.getInstance(context);
         Token token = new Token(myPreferences.getPreference("TOKEN"));
         Long userId = Long.parseLong(myPreferences.getPreference("USER_ID"));
 
 
-        return tagsServiceManager.getTagService(createRetrofit()).getTagsService(token.getToken(),userId,"NEGATIVE");
+        return RESTServiceManager.getTagService(createRetrofit()).getTagsService(token.getToken(),userId,"NEGATIVE");
     }
 
     private Retrofit createRetrofit(){
         return new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8080/")
+                .baseUrl("http://192.168.1.21:8080/")
                 .addConverterFactory(GsonConverterFactory.create(createGson()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
