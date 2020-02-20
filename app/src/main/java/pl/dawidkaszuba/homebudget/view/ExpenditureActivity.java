@@ -1,9 +1,8 @@
 package pl.dawidkaszuba.homebudget.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.math.BigDecimal;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import pl.dawidkaszuba.homebudget.ApiUtils;
 import pl.dawidkaszuba.homebudget.R;
 import pl.dawidkaszuba.homebudget.RetrofitClient;
@@ -23,10 +23,10 @@ import pl.dawidkaszuba.homebudget.pojo.Expenditure;
 import pl.dawidkaszuba.homebudget.pojo.Tag;
 import pl.dawidkaszuba.homebudget.pojo.Token;
 import pl.dawidkaszuba.homebudget.pojo.User;
-import pl.dawidkaszuba.homebudget.service.BackendServerService;
-import pl.dawidkaszuba.homebudget.shearedPreferences.MyPreferences;
 import pl.dawidkaszuba.homebudget.presenter.PresenterTagContract;
 import pl.dawidkaszuba.homebudget.presenter.PresenterTagContractImpl;
+import pl.dawidkaszuba.homebudget.service.BackendServerService;
+import pl.dawidkaszuba.homebudget.shearedPreferences.MyPreferences;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -67,7 +67,7 @@ public class ExpenditureActivity extends AppCompatActivity implements ViewTagCon
 
 
     private void addExpenditure(){
-
+        Intent intent = new Intent(getApplicationContext(), BalanceActivity.class);
 
         EditText expenditureNoteField= findViewById(R.id.expenditure_note);
         EditText expenditureAmountField= findViewById(R.id.expenditure_amount);
@@ -89,14 +89,14 @@ public class ExpenditureActivity extends AppCompatActivity implements ViewTagCon
         Expenditure expenditure = new Expenditure(new BigDecimal(expenditureAmount.toString()),tag,expenditureNote.toString(),user);
 
 
-        Call<Expenditure> call = mBackendServerService.addExpenditure(token.getToken(),expenditure,userId);
-        call.enqueue(new Callback<Expenditure>() {
+        Call<ResponseBody> call = mBackendServerService.addExpenditure(token.getToken(),expenditure,userId);
+        call.enqueue(new Callback<ResponseBody>() {
 
             @Override
-            public void onResponse(final Call<Expenditure> call, final Response<Expenditure> response) {
+            public void onResponse(final Call<ResponseBody> call, final Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
 
-                    Toast.makeText(getApplicationContext(),"expenditure created",Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
 
                 }else{
 
@@ -105,10 +105,12 @@ public class ExpenditureActivity extends AppCompatActivity implements ViewTagCon
             }
 
             @Override
-            public void onFailure(final Call<Expenditure> call, final Throwable t) {
+            public void onFailure(final Call<ResponseBody> call, final Throwable t) {
                 Toast.makeText(ExpenditureActivity.this,"Error!",Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
 
