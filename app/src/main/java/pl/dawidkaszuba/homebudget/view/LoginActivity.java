@@ -38,14 +38,10 @@ public class LoginActivity extends AppCompatActivity {
 
         Button registerButton = findViewById(R.id.register_send);
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(final View v) {
-                 EditText userNameField = findViewById(R.id.username);
-                 EditText passwordField = findViewById(R.id.password);
-                 login(userNameField.getText().toString(),passwordField.getText().toString());
-            }
+        registerButton.setOnClickListener(v -> {
+             EditText userNameField = findViewById(R.id.username);
+             EditText passwordField = findViewById(R.id.password);
+             login(userNameField.getText().toString(),passwordField.getText().toString());
         });
 
     }

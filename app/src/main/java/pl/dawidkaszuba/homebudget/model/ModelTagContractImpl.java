@@ -33,12 +33,12 @@ public class ModelTagContractImpl implements ModelTagContract {
         Long userId = Long.parseLong(myPreferences.getPreference("USER_ID"));
 
 
-        return tagsServiceManager.getTagService(createRetrofit()).getTagsService(token.getToken(),userId);
+        return tagsServiceManager.getTagService(createRetrofit()).getTagsService(token.getToken(),userId,"NEGATIVE");
     }
 
     private Retrofit createRetrofit(){
         return new Retrofit.Builder()
-                .baseUrl("http://192.168.1.21:8080/")
+                .baseUrl("http://10.0.2.2:8080/")
                 .addConverterFactory(GsonConverterFactory.create(createGson()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();

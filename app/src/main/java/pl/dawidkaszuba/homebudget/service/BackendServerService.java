@@ -3,6 +3,7 @@ package pl.dawidkaszuba.homebudget.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import pl.dawidkaszuba.homebudget.pojo.Balance;
 import pl.dawidkaszuba.homebudget.pojo.Expenditure;
 import pl.dawidkaszuba.homebudget.pojo.LoggedUser;
@@ -29,12 +30,9 @@ public interface BackendServerService {
                              @Query(value = "to") LocalDate to);
 
     @POST("/users/{userId}/expenditures")
-    Call<Expenditure> addExpenditure(@Header("Authorization") String token,
-                                     @Body Expenditure expenditure,
-                                     @Path("userId") Long userId);
+    Call<ResponseBody> addExpenditure(@Header("Authorization") String token,
+                                      @Body Expenditure expenditure,
+                                      @Path("userId") Long userId);
 
-    @GET("/users/{userId}/tags")
-    Call<List<Tag>> getAllTags(@Header("Authorization") String token,
-                               @Path("userId") Long userId);
 
 }

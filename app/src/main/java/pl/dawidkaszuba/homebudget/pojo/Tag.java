@@ -4,6 +4,7 @@ public class Tag {
 
     private Long id;
     private String name;
+    private Kind kind;
 
     public Long getId() {
         return id;
@@ -19,6 +20,14 @@ public class Tag {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Kind getKind() {
+        return kind;
+    }
+
+    public void setKind(Kind kind) {
+        this.kind = kind;
     }
 
     @Override
