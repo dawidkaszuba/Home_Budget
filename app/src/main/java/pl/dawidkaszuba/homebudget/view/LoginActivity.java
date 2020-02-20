@@ -1,5 +1,6 @@
 package pl.dawidkaszuba.homebudget.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +23,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends Activity {
 
 
     Retrofit retrofit = RetrofitClient.getClient(ApiUtils.BASE_URL);

@@ -9,7 +9,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-public interface TagsService {
+public interface RESTService {
 
 
     @GET("users/{userId}/tags")
