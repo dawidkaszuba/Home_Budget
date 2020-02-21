@@ -7,5 +7,5 @@ import pl.dawidkaszuba.homebudget.pojo.Tag;
 
 public interface ModelTagContract {
 
-    Single<List<Tag>> getTagsFromHttp();
+    Single<List<Tag>> getTagsFromHttp(String kind);
 }

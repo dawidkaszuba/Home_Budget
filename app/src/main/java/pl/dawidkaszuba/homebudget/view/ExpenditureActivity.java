@@ -20,7 +20,7 @@ import pl.dawidkaszuba.homebudget.pojo.Tag;
 import pl.dawidkaszuba.homebudget.presenter.PresenterExpenditureContract;
 import pl.dawidkaszuba.homebudget.presenter.PresenterExpenditureContractImpl;
 
-public class ExpenditureActivity extends Activity implements ViewTagContract {
+public class ExpenditureActivity extends Activity implements ViewExpenditureContract {
 
     Spinner spinner;
 
@@ -36,7 +36,7 @@ public class ExpenditureActivity extends Activity implements ViewTagContract {
 
         spinner = findViewById(R.id.tag_spinner);
         presenterContract = new PresenterExpenditureContractImpl(this);
-        presenterContract.getTags();
+        presenterContract.getTags("NEGATIVE");
 
         Button createExpenditure = findViewById(R.id.expenditure_send);
 
@@ -75,7 +75,7 @@ public class ExpenditureActivity extends Activity implements ViewTagContract {
     public void errorMessage(String msg){
         Toast.makeText(ExpenditureActivity.this,"error: " + msg, Toast.LENGTH_SHORT).show();
     }
-
+    @Override
     public void navigateToHomeScreen(Intent intent) {
         startActivity(intent);
     }

@@ -3,24 +3,22 @@ package pl.dawidkaszuba.homebudget.pojo;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class Expenditure {
-
+public class Income {
 
     private Long id;
     private BigDecimal amount;
-    private LocalDate expenditureDate;
+    private LocalDate incomeDate;
     private Tag tag;
-    private PlannedCashFlow plannedCashFlow;
     private String note;
     private User user;
 
-
-    public Expenditure(BigDecimal amount, Tag tag, String note, User user) {
+    public Income(BigDecimal amount, Tag tag, String note, User user) {
         this.amount = amount;
         this.tag = tag;
         this.note = note;
         this.user = user;
     }
+
 
     public Long getId() {
         return id;
@@ -38,12 +36,12 @@ public class Expenditure {
         this.amount = amount;
     }
 
-    public LocalDate getExpenditureDate() {
-        return expenditureDate;
+    public LocalDate getIncomeDate() {
+        return incomeDate;
     }
 
-    public void setExpenditureDate(LocalDate expenditureDate) {
-        this.expenditureDate = expenditureDate;
+    public void setIncomeDate(LocalDate incomeDate) {
+        this.incomeDate = incomeDate;
     }
 
     public Tag getTag() {
@@ -52,14 +50,6 @@ public class Expenditure {
 
     public void setTag(Tag tag) {
         this.tag = tag;
-    }
-
-    public PlannedCashFlow getPlannedCashFlow() {
-        return plannedCashFlow;
-    }
-
-    public void setPlannedCashFlow(PlannedCashFlow plannedCashFlow) {
-        this.plannedCashFlow = plannedCashFlow;
     }
 
     public String getNote() {
