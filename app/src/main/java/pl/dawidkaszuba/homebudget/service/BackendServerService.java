@@ -6,6 +6,7 @@ import java.util.List;
 import okhttp3.ResponseBody;
 import pl.dawidkaszuba.homebudget.pojo.Balance;
 import pl.dawidkaszuba.homebudget.pojo.Expenditure;
+import pl.dawidkaszuba.homebudget.pojo.Income;
 import pl.dawidkaszuba.homebudget.pojo.LoggedUser;
 import pl.dawidkaszuba.homebudget.pojo.Tag;
 import pl.dawidkaszuba.homebudget.pojo.User;
@@ -35,4 +36,8 @@ public interface BackendServerService {
                                       @Path("userId") Long userId);
 
 
+    @POST("/users/{userId}/incomes")
+    Call<ResponseBody> addIncome(@Header("Authorization") String token,
+                                 @Body Income income,
+                                 @Path("userId") Long userId);
 }
