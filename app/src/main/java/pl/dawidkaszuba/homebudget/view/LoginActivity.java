@@ -70,13 +70,13 @@ public class LoginActivity extends Activity {
 
                 }else{
 
-                    Toast.makeText(LoginActivity.this,response.errorBody().toString(),Toast.LENGTH_SHORT).show();
                 }
             }
 
 
             @Override
             public void onFailure(final Call<LoggedUser> call, final Throwable t) {
+
                 Toast.makeText(LoginActivity.this,"Error!",Toast.LENGTH_SHORT).show();
             }
         });
