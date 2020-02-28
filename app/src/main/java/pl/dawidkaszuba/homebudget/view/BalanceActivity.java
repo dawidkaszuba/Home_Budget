@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,8 +29,8 @@ public class BalanceActivity extends Activity {
 
     Retrofit retrofit = RetrofitClient.getClient(ApiUtils.BASE_URL);
 
-
     BackendServerService mBackendServerService = retrofit.create(BackendServerService.class);
+
 
 
     @Override
@@ -91,7 +92,16 @@ public class BalanceActivity extends Activity {
 
                 } else {
 
-                    balanceTextView.setText("Call Error!");
+                    if (response.code() == 401) {
+
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+
+                    } else {
+
+                        balanceTextView.setText("Call Error!");
+                    }
+
                 }
             }
 

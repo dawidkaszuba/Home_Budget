@@ -46,14 +46,15 @@ public class ExpenditureActivity extends Activity implements ViewExpenditureCont
         Editable expenditureNote = expenditureNoteField.getText();
 
         View view = new View(getApplicationContext());
-        Tag tag = (Tag) spinner.getSelectedItem();
 
-       createExpenditure.setOnClickListener( v -> {
-           presenterContract
+
+        createExpenditure.setOnClickListener( v -> {
+            Tag tag = (Tag) spinner.getSelectedItem();
+            presenterContract
                    .addExpenditure(view,expenditureAmount.toString(),
                            expenditureNote.toString(),
                            tag);
-       });
+        });
 
 
     }
@@ -66,7 +67,6 @@ public class ExpenditureActivity extends Activity implements ViewExpenditureCont
                 R.layout.support_simple_spinner_dropdown_item,tags);
 
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-
         spinner.setAdapter(adapter);
 
     }

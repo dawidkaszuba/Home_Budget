@@ -44,13 +44,15 @@ public class IncomeActivity extends Activity implements  ViewIncomeContract{
         Editable incomeNote = incomeNoteField.getText();
 
         View view = new View(getApplicationContext());
-        Tag tag = (Tag) spinner.getSelectedItem();
 
         createExpenditure.setOnClickListener(
-                v -> presenterContract
-                     .addIncome(view,incomeAmount.toString(),
-                        incomeNote.toString(),
-                        tag));
+                v -> {
+                    Tag tag = (Tag) spinner.getSelectedItem();
+                    presenterContract
+                            .addIncome(view, incomeAmount.toString(),
+                                    incomeNote.toString(),
+                                    tag);
+                });
     }
 
     @Override
