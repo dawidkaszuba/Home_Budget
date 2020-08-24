@@ -16,8 +16,10 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 import pl.dawidkaszuba.homebudget.ApiUtils;
 import pl.dawidkaszuba.homebudget.RetrofitClient;
+import pl.dawidkaszuba.homebudget.model.ModelPlannedCashFlowContact;
 import pl.dawidkaszuba.homebudget.model.ModelTagContract;
 import pl.dawidkaszuba.homebudget.pojo.Expenditure;
+import pl.dawidkaszuba.homebudget.pojo.PlannedCashFlow;
 import pl.dawidkaszuba.homebudget.pojo.Tag;
 import pl.dawidkaszuba.homebudget.model.ModelTagContractImpl;
 import pl.dawidkaszuba.homebudget.pojo.Token;
@@ -38,8 +40,9 @@ public class PresenterExpenditureContractImpl implements PresenterExpenditureCon
 
 
     ViewExpenditureContract view;
-
     ModelTagContract model;
+    ModelPlannedCashFlowContact pcf_model;
+
 
 
     public PresenterExpenditureContractImpl(Context context) {
@@ -76,7 +79,36 @@ public class PresenterExpenditureContractImpl implements PresenterExpenditureCon
 
     }
 
-    public void addExpenditure(View view,String expenditureAmount, String expenditureNote,Tag tag){
+    @Override
+    public void getPlannedCashFlows() {
+
+        pcf_model.getPlannedCashFlowFromHttp()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.computation())
+                .subscribe(new SingleObserver<List<PlannedCashFlow>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Log.d(TAG,"on subscribe: ");
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<PlannedCashFlow> plannedCashFlows) {
+                        Log.d(TAG,"on Success: " + plannedCashFlows.size());
+
+                        view.fillPlannedCashFlowSpinner(plannedCashFlows);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d(TAG,"on Error: " + e.getMessage());
+                        view.errorMessage("error: " + e.getMessage());
+                    }
+                });
+
+    }
+
+    public void addExpenditure(View view, String expenditureAmount, String expenditureNote, Tag tag){
 
 
         Retrofit retrofit = RetrofitClient.getClient(ApiUtils.BASE_URL);
