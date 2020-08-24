@@ -10,6 +10,7 @@ import java.util.List;
 import io.reactivex.Single;
 import pl.dawidkaszuba.homebudget.pojo.Tag;
 import pl.dawidkaszuba.homebudget.pojo.Token;
+import pl.dawidkaszuba.homebudget.service.RESTServiceManager;
 import pl.dawidkaszuba.homebudget.shearedPreferences.MyPreferences;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -33,7 +34,7 @@ public class ModelTagContractImpl implements ModelTagContract {
         Long userId = Long.parseLong(myPreferences.getPreference("USER_ID"));
 
 
-        return RESTServiceManager.getTagService(createRetrofit()).getTagsService(token.getToken(),userId,kind);
+        return RESTServiceManager.getService(createRetrofit()).getTagsService(token.getToken(),userId,kind);
     }
 
     private Retrofit createRetrofit(){

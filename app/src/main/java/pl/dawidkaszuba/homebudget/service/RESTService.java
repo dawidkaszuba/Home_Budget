@@ -1,4 +1,4 @@
-package pl.dawidkaszuba.homebudget.model;
+package pl.dawidkaszuba.homebudget.service;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public interface RESTService {
                                      @Path("userId") Long userId,
                                      @Query(value = "kind") String kind);
 
-    @GET("user/{userId}/plannedCashFlow")
+    @GET("users/{userId}/plannedCashFlows")
     Single<List<PlannedCashFlow>> getPlannedCashFlow(@Header("Authorization") String token,
                                                      @Path("userId") Long userId);
 }

@@ -16,6 +16,7 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 import pl.dawidkaszuba.homebudget.ApiUtils;
 import pl.dawidkaszuba.homebudget.RetrofitClient;
+import pl.dawidkaszuba.homebudget.model.ModelPLannedCashFlowContractImpl;
 import pl.dawidkaszuba.homebudget.model.ModelPlannedCashFlowContact;
 import pl.dawidkaszuba.homebudget.model.ModelTagContract;
 import pl.dawidkaszuba.homebudget.pojo.Expenditure;
@@ -48,6 +49,7 @@ public class PresenterExpenditureContractImpl implements PresenterExpenditureCon
     public PresenterExpenditureContractImpl(Context context) {
         view = (ViewExpenditureContract) context;
         model = new ModelTagContractImpl(context);
+        pcf_model = new ModelPLannedCashFlowContractImpl(context);
     }
 
     @Override
@@ -76,7 +78,6 @@ public class PresenterExpenditureContractImpl implements PresenterExpenditureCon
                         view.errorMessage("error: " + e.getMessage());
                     }
                 });
-
     }
 
     @Override
@@ -108,7 +109,8 @@ public class PresenterExpenditureContractImpl implements PresenterExpenditureCon
 
     }
 
-    public void addExpenditure(View view, String expenditureAmount, String expenditureNote, Tag tag){
+    public void addExpenditure(View view, String expenditureAmount, String expenditureNote, Tag tag,
+                               PlannedCashFlow pcf){
 
 
         Retrofit retrofit = RetrofitClient.getClient(ApiUtils.BASE_URL);
@@ -124,7 +126,7 @@ public class PresenterExpenditureContractImpl implements PresenterExpenditureCon
         Token token = new Token(myPreferences.getPreference("TOKEN"));
 
         User user = new User(userId,userName);
-        Expenditure expenditure = new Expenditure(new BigDecimal(expenditureAmount),tag,expenditureNote,user);
+        Expenditure expenditure = new Expenditure(new BigDecimal(expenditureAmount),tag,expenditureNote,user,pcf);
 
 
         Call<ResponseBody> call = mBackendServerService.addExpenditure(token.getToken(),expenditure,userId);

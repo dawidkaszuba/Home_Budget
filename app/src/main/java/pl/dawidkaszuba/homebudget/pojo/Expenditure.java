@@ -15,11 +15,12 @@ public class Expenditure {
     private User user;
 
 
-    public Expenditure(BigDecimal amount, Tag tag, String note, User user) {
+    public Expenditure(BigDecimal amount, Tag tag, String note, User user, PlannedCashFlow pcf) {
         this.amount = amount;
         this.tag = tag;
         this.note = note;
         this.user = user;
+        this.plannedCashFlow = pcf;
     }
 
     public Long getId() {

@@ -1,10 +1,10 @@
-package pl.dawidkaszuba.homebudget.model;
+package pl.dawidkaszuba.homebudget.service;
 
 import retrofit2.Retrofit;
 
 public class RESTServiceManager {
 
-    RESTService getTagService(Retrofit retrofit) {
+    public RESTService getService(Retrofit retrofit) {
         return retrofit.create(RESTService.class);
     }
 }

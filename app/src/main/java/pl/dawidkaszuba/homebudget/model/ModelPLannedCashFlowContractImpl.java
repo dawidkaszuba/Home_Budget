@@ -10,6 +10,7 @@ import java.util.List;
 import io.reactivex.Single;
 import pl.dawidkaszuba.homebudget.pojo.PlannedCashFlow;
 import pl.dawidkaszuba.homebudget.pojo.Token;
+import pl.dawidkaszuba.homebudget.service.RESTServiceManager;
 import pl.dawidkaszuba.homebudget.shearedPreferences.MyPreferences;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -31,7 +32,7 @@ public class ModelPLannedCashFlowContractImpl implements ModelPlannedCashFlowCon
         Token token = new Token(myPreferences.getPreference("TOKEN"));
         Long userId = Long.parseLong(myPreferences.getPreference("USER_ID"));
 
-        return RESTServiceManager.getTagService(createRetrofit()).getPlannedCashFlow(token.getToken(),userId);
+        return RESTServiceManager.getService(createRetrofit()).getPlannedCashFlow(token.getToken(),userId);
     }
 
     private Retrofit createRetrofit(){

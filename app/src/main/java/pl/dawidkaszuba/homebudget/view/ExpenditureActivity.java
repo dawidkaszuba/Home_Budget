@@ -52,10 +52,11 @@ public class ExpenditureActivity extends Activity implements ViewExpenditureCont
 
         createExpenditure.setOnClickListener( v -> {
             Tag tag = (Tag) tag_spinner.getSelectedItem();
+            PlannedCashFlow pcf = (PlannedCashFlow) pcf_spinner.getSelectedItem();
             presenterContract
                    .addExpenditure(view,expenditureAmount.toString(),
                            expenditureNote.toString(),
-                           tag);
+                           tag,pcf);
         });
     }
 
