@@ -21,6 +21,7 @@
         <activity android:name=".view.ExpenditureActivity" />
         <activity android:name=".view.IncomeActivity" />
         <activity android:name=".view.MainActivity" />
+        <activity android:name=".view.IncomesListActivity" />
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

@@ -50,6 +50,26 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/incomes_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/white"
+            app:fab_colorPressed="@color/white_pressed"
+            app:fab_icon="@drawable/ic_add_pink"
+            app:fab_size="mini"
+            app:fab_title="incomes list" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/expenditure_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/white"
+            app:fab_colorPressed="@color/white_pressed"
+            app:fab_icon="@drawable/ic_add_pink"
+            app:fab_size="mini"
+            app:fab_title="expenditures list" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_expenditure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

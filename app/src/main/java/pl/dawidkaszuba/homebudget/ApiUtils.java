@@ -6,7 +6,7 @@ public class ApiUtils {
 
     private ApiUtils() {}
 
-    public static final String BASE_URL = "http://192.168.1.21:8080/";
+    public static final String BASE_URL = "http://192.168.1.14:8080/";
 
     public static LoginActivity getAPIService() {
 

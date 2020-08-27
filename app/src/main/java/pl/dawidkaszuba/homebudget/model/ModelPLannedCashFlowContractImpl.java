@@ -37,7 +37,7 @@ public class ModelPLannedCashFlowContractImpl implements ModelPlannedCashFlowCon
 
     private Retrofit createRetrofit(){
         return new Retrofit.Builder()
-                .baseUrl("http://192.168.1.21:8080/")
+                .baseUrl("http://192.168.1.14:8080/")
                 .addConverterFactory(GsonConverterFactory.create(createGson()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
