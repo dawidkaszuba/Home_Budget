@@ -58,6 +58,15 @@ public class BalanceActivity extends Activity {
 
         });
 
+        FloatingActionButton incomesList = findViewById(R.id.incomes_list);
+
+        incomesList.setOnClickListener(v -> {
+
+            Intent intent = new Intent(getApplicationContext(), IncomesListActivity.class);
+            startActivity(intent);
+
+        });
+
 
     }
     private void getBalance() {
