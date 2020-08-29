@@ -17,13 +17,22 @@ import java.util.List;
 import pl.dawidkaszuba.homebudget.R;
 import pl.dawidkaszuba.homebudget.pojo.Income;
 
-public class IncomesListActivity extends Activity {
+public class IncomesListActivity extends Activity implements ViewIncomesListContract{
+
+    private IncomeAdapter incomeAdapter;
+    private List<Income> incomeList;
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.incomes_list_activity);
     }
+
+    @Override
+    public void setIncomeList(final List<Income> incomes) {
+        this.incomeList = incomes;
+    }
+
 
     private class IncomeAdapter extends RecyclerView.Adapter<IncomeAdapter.IncomeViewHolder>{
 
@@ -58,17 +67,27 @@ public class IncomesListActivity extends Activity {
 
         @Override
         public void onBindViewHolder(@NonNull final IncomeViewHolder holder, final int position) {
-
+            Income income = incomes.get(position);
+            holder.expenditureDescription.setText(new StringBuilder()
+                    .append(income.getNote())
+                    .append(" ")
+                    .append(income.getAmount())
+                    .append(" ")
+                    .append(income.getIncomeDate())
+                    .append(" ")
+                    .append(income.getTag())
+                    .toString());
+            holder.deleteExpenditureButton.setOnClickListener(v -> {
+                int position1 = holder.getAdapterPosition();
+                incomes.remove(position1);
+                incomeAdapter.notifyItemRemoved(position1);
+            });
         }
 
         @Override
         public int getItemCount() {
             return incomes.size();
         }
-
-
-
     }
-
 
 }
